@@ -1,0 +1,78 @@
+# -----------------------------
+# OS & Editor Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Visual Studio / VS Code
+.vscode/
+.vs/
+*.code-workspace
+
+# -----------------------------
+# Python Environment & Artifacts
+# -----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+build/
+dist/
+pip-wheel-metadata/
+
+# -----------------------------
+# Node / DBT / Temp
+# -----------------------------
+node_modules/
+target/
+logs/
+*.log
+
+# DBT compiled artifacts
+dbt_modules/
+dbt_packages/
+dbt_project/.user.yml
+dbt_project/target/
+dbt_project/logs/
+manifest.json
+run_results.json
+
+# -----------------------------
+# Power BI / Fabric Caches
+# -----------------------------
+*.pbix
+*.pbip.DataModel/
+*.pbit.DataModel/
+AnalysisServicesWorkspaces/
+*.pbix.RESTORE
+~$*
+
+# -----------------------------
+# Temporary or Local Data
+# -----------------------------
+data/raw/
+data/tmp/
+data/intermediate/
+*.csv
+*.xlsx
+*.json
+
+# -----------------------------
+# Miscellaneous
+# -----------------------------
+*.bak
+*.tmp
+*.swp
+*.swo
+*.old
+*.zip
+*.tar
+*.gz
