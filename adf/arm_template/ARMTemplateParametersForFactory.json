@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "finrisk-adf"
+        },
+        "LS_Blob_RawData_connectionString": {
+            "value": ""
+        },
+        "LS_AzureSQLDB_password": {
+            "value": ""
+        },
+        "LS_AzureSQLDB_properties_typeProperties_server": {
+            "value": "finrisk-sql-server.database.windows.net"
+        },
+        "LS_AzureSQLDB_properties_typeProperties_database": {
+            "value": "finriskdb"
+        },
+        "LS_AzureSQLDB_properties_typeProperties_userName": {
+            "value": "sqladmin"
+        }
+    }
+}

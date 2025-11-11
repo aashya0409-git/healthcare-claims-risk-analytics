@@ -1,78 +1,62 @@
-# -----------------------------
-# OS & Editor Files
-# -----------------------------
-.DS_Store
-Thumbs.db
-desktop.ini
-ehthumbs.db
-
-# Visual Studio / VS Code
-.vscode/
-.vs/
-*.code-workspace
-
-# -----------------------------
-# Python Environment & Artifacts
-# -----------------------------
+# ------------------------------
+# Ignore Python virtual envs, Jupyter checkpoints, system files
+# ------------------------------
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.ipynb_checkpoints
 .env
-.venv/
-venv/
-ENV/
+.venv
 env/
-*.egg-info/
-build/
-dist/
-pip-wheel-metadata/
+venv/
 
-# -----------------------------
-# Node / DBT / Temp
-# -----------------------------
-node_modules/
-target/
-logs/
+# ------------------------------
+# Ignore system files
+# ------------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------------
+# Ignore logs and outputs
+# ------------------------------
 *.log
+*.tmp
+*.bak
 
-# DBT compiled artifacts
-dbt_modules/
-dbt_packages/
-dbt_project/.user.yml
-dbt_project/target/
-dbt_project/logs/
-manifest.json
-run_results.json
-
-# -----------------------------
-# Power BI / Fabric Caches
-# -----------------------------
-*.pbix
-*.pbip.DataModel/
-*.pbit.DataModel/
-AnalysisServicesWorkspaces/
-*.pbix.RESTORE
-~$*
-
-# -----------------------------
-# Temporary or Local Data
-# -----------------------------
+# ------------------------------
+# Ignore raw datasets or exports
+# ------------------------------
 data/raw/
-data/tmp/
-data/intermediate/
 *.csv
 *.xlsx
-*.json
 
-# -----------------------------
-# Miscellaneous
-# -----------------------------
-*.bak
-*.tmp
-*.swp
-*.swo
-*.old
-*.zip
-*.tar
-*.gz
+# ------------------------------
+# Ignore VSCode and IDE config files
+# ------------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# ------------------------------
+# Ignore JSON files generally...
+# BUT keep ADF ARM template JSONs
+# ------------------------------
+*.json
+!adf/arm_template/*.json
+
+# ------------------------------
+# Node/DBT/Power BI/Notebook outputs (if applicable)
+# ------------------------------
+node_modules/
+dbt_modules/
+target/
+*.pbix
+*.rds
+*.parquet
+*.feather
+
+# ------------------------------
+# Keep README and markdown docs
+# ------------------------------
+!*.md
