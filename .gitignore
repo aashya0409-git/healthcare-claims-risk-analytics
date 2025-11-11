@@ -19,11 +19,7 @@ Thumbs.db
 
 # Ignore raw data (full datasets)
 data/raw/
-!data/cleaned/
-!data/cleaned/*.csv
 
-# Allow only sample cleaned data (add small subset)
-data/cleaned/*.csv
 
 # Ignore logs and temp files
 *.log
