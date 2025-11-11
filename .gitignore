@@ -1,62 +1,45 @@
-# ------------------------------
-# Ignore Python virtual envs, Jupyter checkpoints, system files
-# ------------------------------
+# Ignore Python cache and environment files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.ipynb_checkpoints
-.env
-.venv
+*.py[cod]
+.env/
+.venv/
 env/
 venv/
 
-# ------------------------------
 # Ignore system files
-# ------------------------------
 .DS_Store
 Thumbs.db
 
-# ------------------------------
-# Ignore logs and outputs
-# ------------------------------
+# Ignore notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore IDE config
+.vscode/
+.idea/
+
+# Ignore raw data (full datasets)
+data/raw/
+!data/cleaned/
+!data/cleaned/*.csv
+
+# Allow only sample cleaned data (add small subset)
+data/cleaned/*.csv
+
+# Ignore logs and temp files
 *.log
 *.tmp
 *.bak
 
-# ------------------------------
-# Ignore raw datasets or exports
-# ------------------------------
-data/raw/
-*.csv
-*.xlsx
-
-# ------------------------------
-# Ignore VSCode and IDE config files
-# ------------------------------
-.vscode/
-.idea/
-*.code-workspace
-
-# ------------------------------
-# Ignore JSON files generally...
-# BUT keep ADF ARM template JSONs
-# ------------------------------
+# Ignore all JSON files except ADF ARM templates
 *.json
 !adf/arm_template/*.json
 
-# ------------------------------
-# Node/DBT/Power BI/Notebook outputs (if applicable)
-# ------------------------------
-node_modules/
+# Ignore DBT target folders
 dbt_modules/
 target/
-*.pbix
-*.rds
-*.parquet
-*.feather
 
-# ------------------------------
-# Keep README and markdown docs
-# ------------------------------
+# Ignore Power BI files (large binaries)
+*.pbix
+
+# Allow markdown and documentation
 !*.md
