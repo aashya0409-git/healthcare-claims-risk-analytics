@@ -36,7 +36,7 @@ Build an **end-to-end pipeline** to:
 
 ```
 ├── data/
-│   ├── raw/               # Original CSVs (from Kaggle)
+│   ├── raw/               # Original CSVs (from Kaggle) - didnt upload due to complaince
 │   └── cleaned/           # Post-EDA & cleaning
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
@@ -63,12 +63,33 @@ Build an **end-to-end pipeline** to:
 ✅ Cleaned datasets saved  
 ✅ Blob Storage + ADF pipeline created  
 ✅ Azure SQL tables created + loaded  
+✅ commited everything done so far to Git repository
 
 Next:
 - DBT models for Fact + Dimension tables  
 - Power BI Dashboard build  
-- Publish write-up and insights  
+- Publish write-up and insights
 
-## Last Updated
+  ##  Key Metrics & Use Cases  
+- Number of hospital admissions by chronic condition  
+- Average cost and length of stay per condition and patient demographic  
+- County/state breakdown of inpatient claims  
+- High resource‑use patient flags (long stay + high cost)
 
-**November 11, 2025**
+---
+
+##  Source  
+Data from: [Kaggle – Medicare Provider Utilization and Payment Data] (link) – anonymized and reduced sample for portfolio use.
+
+---
+
+##  Skills Demonstrated  
+- Cloud‑based ingestion and processing (Azure Blob, ADF, Azure SQL)  
+- Data modeling/fact‑dimension structures using DBT
+- Notebook‑based data exploration & cleaning  
+- BI dashboard creation with Power BI  
+- Portfolio‑worthy presentation of end‑to‑end flow
+
+---
+
+Last Updated: November 11, 2025
