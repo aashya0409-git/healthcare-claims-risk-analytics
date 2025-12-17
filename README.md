@@ -1,95 +1,149 @@
-
 # Patient Risk & Utilization Insights – Healthcare Analytics Portfolio Project
 
-This project simulates end-to-end data engineering and analytics pipeline for a healthcare provider aiming to better understand **hospitalization costs**, **chronic condition patterns**, and **resource utilization** using anonymized inpatient claims and beneficiary data.
+This project demonstrates an **end-to-end data engineering and analytics pipeline** built to analyze inpatient healthcare claims and beneficiary data.  
+It showcases modern cloud-based ingestion, transformation, modeling, testing, and visualization practices using Azure, dbt, and Power BI.
+
+The goal of this portfolio project is to replicate **real-world enterprise data workflows**, including handling imperfect data, resolving pipeline errors, and delivering analytics-ready datasets for business users.
 
 ## Business Problem
 
-A healthcare analytics team wants to monitor patient profiles, chronic condition risks, and hospitalization costs to improve care delivery and flag areas with unusually high utilization or potential inefficiencies.
+A healthcare analytics team wants to monitor patient profiles, chronic condition risks, and hospitalization costs to improve care delivery and identify areas of unusually high utilization or potential inefficiencies.
 
 They lack a centralized system to:
+
 - Profile high-risk patient populations using chronic condition flags (`SP_DIABETES`, `SP_CHF`, etc.)
 - Analyze claim payment distributions (`CLM_PMT_AMT`) across counties and states
-- Understand how `CLM_UTLZTN_DAY_CNT` (utilization days) varies for different demographic groups
-- Identify possible fraud or over-utilization based on patterns in admission/discharge timing
+- Understand how `CLM_UTLZTN_DAY_CNT` (utilization days) varies by demographic groups
+- Identify potential fraud or over-utilization using cost and length-of-stay patterns
 
 ## Objective
 
-Build an **end-to-end pipeline** to:
-- Ingest and clean claims + patient data
-- Transform and model it using modern tools (DBT, Azure SQL, ADF)
-- Load it into a BI tool (Power BI)
-- Present insights in an interactive dashboard
+Build an **end-to-end analytics pipeline** to:
+
+- Ingest and clean claims and patient data
+- Transform and model data using dbt (staging → intermediate → marts)
+- Enforce data quality using schema and custom tests
+- Serve analytics-ready data to Power BI
+- Deliver executive-ready dashboards with drill-through and insights
 
 ## Tech Stack
 
-| Layer         | Tools                               |
-|---------------|--------------------------------------|
-| Storage       | Azure Blob Storage (Data Lake Gen2)  |
-| Ingestion     | Azure Data Factory                   |
-| Processing    | Python (pandas), DBT                 |
-| Modeling      | Azure SQL Database                   |
-| Visualization | Power BI                             |
-| Versioning    | Git & GitHub                         |
+| Layer | Tools |
+|-----|------|
+| Storage | Azure Blob Storage (ADLS Gen2) |
+| Ingestion | Azure Data Factory |
+| Processing | Python (EDA), dbt |
+| Data Warehouse | Azure SQL Database |
+| Modeling | dbt (staging, dimension, fact models) |
+| Testing | dbt tests + dbt_utils |
+| Visualization | Power BI |
+| Version Control | Git & GitHub |
 
-##  Project Structure
+## Project Structure
 
-```
 ├── data/
-│   ├── raw/               # Original CSVs (from Kaggle) - didnt upload due to complaince
-│   └── cleaned/           # Post-EDA & cleaning
+│ ├── raw/ # Original CSVs (not committed due to compliance)
+│ └── cleaned/ # Cleaned datasets from Python EDA
 ├── notebooks/
-│   ├── 01_data_exploration.ipynb
-│   └── 02_data_cleaning.ipynb
-├── sql/
-│   ├── create_staging_tables.sql
-│   └── create_data_model.sql
+│ ├── 01_data_exploration.ipynb
+│ └── 02_data_cleaning.ipynb
 ├── dbt/
-│   ├── models/
-│   └── dbt_project.yml
+│ ├── claims_dbt/
+│ │ ├── models/
+│ │ │ ├── staging/
+│ │ │ ├── intermediate/
+│ │ │ ├── marts/
+│ │ ├── seeds/
+│ │ ├── tests/
+│ │ ├── dbt_project.yml
+│ │ ├── packages.yml
+│ └── profiles.yml (local)
 ├── adf/
-│   └── arm_template/
+│ └── arm_templates/
 ├── powerbi/
-│   └── healthcare_claims_dashboard.pbix
+│ └── Healthcare_Claims_Dashboard.pbix
 ├── setup.md
 ├── architecture.md
 └── README.md
-```
 
-## Status
+## Data Modeling Approach
 
-✅ Dataset downloaded  
-✅ Exploratory Analysis in Jupyter using Python 
-✅ Cleaned datasets saved  
-✅ Blob Storage + ADF pipeline created  
-✅ Azure SQL tables created + loaded  
-✅ commited everything done so far to Git repository
+- **Staging models** (`stg_*`):  
+  Raw ingestion with type casting, trimming, null handling, and standardization.
 
-Next:
-- DBT models for Fact + Dimension tables  
-- Power BI Dashboard build  
-- Publish write-up and insights
+- **Intermediate models** (`int_*`):  
+  Deduplication logic and business consolidation (e.g., one row per patient).
 
-  ##  Key Metrics & Use Cases  
-- Number of hospital admissions by chronic condition  
-- Average cost and length of stay per condition and patient demographic  
-- County/state breakdown of inpatient claims  
-- High resource‑use patient flags (long stay + high cost)
+- **Mart models**:
+  - `dim_patient`: Patient demographics + chronic condition flags
+  - `fact_inpatient_claims`: Claims, utilization, cost, length of stay
+  - `vw_claims_dashboard`: Power BI–friendly reporting view
 
----
+## Data Quality & Testing
 
-##  Source  
-Data from: [Kaggle – Medicare Provider Utilization and Payment Data] (link) – anonymized and reduced sample for portfolio use.
+Implemented extensive dbt tests:
 
----
+- `not_null` on critical identifiers
+- `accepted_values` for coded fields (gender, race)
+- `unique` and `unique_combination_of_columns` for business keys
+- Custom business rule tests:
+  - High-cost claim detection
+  - Positive utilization days
 
-##  Skills Demonstrated  
-- Cloud‑based ingestion and processing (Azure Blob, ADF, Azure SQL)  
-- Data modeling/fact‑dimension structures using DBT
-- Notebook‑based data exploration & cleaning  
-- BI dashboard creation with Power BI  
-- Portfolio‑worthy presentation of end‑to‑end flow
+## Key Challenges Faced & How They Were Resolved
 
----
+### 1. Duplicate Business Keys
+**Issue:**  
+`claim_id` was not unique in raw data.
 
-Last Updated: November 11, 2025
+**Fix:**  
+Replaced strict uniqueness with:
+```yaml
+dbt_utils.unique_combination_of_columns:
+  combination_of_columns:
+    - claim_id
+    - claim_start_date
+    - patient_id
+
+2. Data Type Conversion Failures :
+Issue:
+Errors like: Conversion failed when converting the nvarchar value '5.0' to int
+Fix: Used TRY_CAST / TRY_CONVERT in staging models and normalized numeric fields before testing.
+
+3. Missing Dimension Attributes in Power BI: 
+Issue: Gender, race, and chronic condition fields appeared as NULL in reporting views.
+Root Cause: Patient IDs were inconsistent between claims and beneficiary datasets due to ADF ingestion differences.
+Fix: Trimmed and standardized patient_id in staging, Ensured correct joins via int_beneficiary, Rebuilt downstream models
+
+4. dbt Test Compilation Errors:
+Issue: Incorrect YAML syntax and deprecated test definitions.
+Fix: Corrected test indentation
+Migrated to arguments: syntax
+Installed and locked dbt_utils via packages.yml
+
+Power BI Dashboard
+
+The final Power BI dashboard includes:
+High-cost claim indicators
+Utilization trends by demographic
+Chronic condition risk profiling
+Drill-through from summary → patient detail
+Executive KPIs with clean semantic modeling
+
+Current Status: 
+
+✅ Data ingestion completed
+✅ dbt models built and tested
+✅ Power BI dashboard completed
+✅ End-to-end pipeline validated
+✅ GitHub repository finalized
+
+Skills Demonstrated: 
+1. Cloud data ingestion and orchestration (ADF)
+2. SQL-based transformations using dbt
+3. Data quality testing and debugging
+4. Dimensional modeling
+5. BI storytelling and drill-through design
+6. Enterprise-style documentation and version control
+
+Last Updated: December 17th 2025
