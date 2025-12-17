@@ -39,12 +39,12 @@ Refresh datasets
 Validate visuals and drill-throughs
 
 ## Common Issues & Fixes: 
-Issue	             |  Resolution
-----------------------------------------------------
-Data type errors	 |  Use TRY_CAST in staging
-Missing joins	     |  Standardize business keys
-Failing dbt tests	 |  Fix YAML syntax & logic
-Duplicate keys	     |  Use composite uniqueness
+Issue	               Resolution
+
+Data type errors	   Use TRY_CAST in staging
+Missing joins	       Standardize business keys
+Failing dbt tests	  Fix YAML syntax & logic
+Duplicate keys	       Use composite uniqueness
 
 ## Git Best Practices : 
 Do not commit raw data
