@@ -98,7 +98,7 @@ Implemented extensive dbt tests:
 
 **Fix:**  
 Replaced strict uniqueness with:
-```yaml
+
 dbt_utils.unique_combination_of_columns:
   combination_of_columns:
     - claim_id

@@ -13,7 +13,6 @@ This guide explains how to run the project end-to-end locally.
 
 ## Step 1: Clone Repository
 
-```bash
 git clone https://github.com/<your-username>/healthcare_claims_risk_analytics.git
 cd healthcare_claims_risk_analytics
 
