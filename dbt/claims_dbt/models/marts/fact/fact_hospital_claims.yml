@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: fact_inpatient_claims
+    description: "Fact table for inpatient hospital claims joined with patient dimension"
+    columns:
+      - name: claim_id
+        tests:
+          - not_null
+
+      - name: patient_id
+        tests:
+          - not_null
+
+      - name: claim_payment_amount
+        tests:
+          - not_null
+          
+      - name: utilization_days_clean
+        description: "Cleaned number of utilization days (0 if original null)"
+   
+    tests:
+         - name: utilization_days_clean_positive
+           description: "Ensure no negative values in utilization_days_clean"
+
+    tests:
+     - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+           - claim_id
+           - claim_start_date
+           - patient_id  

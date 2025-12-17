@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: dbo 
+    database: finriskdb
+    tables:
+      - name: InpatientClaims
+        description: "Raw inpatient claim data loaded from Azure Blob"
+      - name: Beneficiary
+        description: "Raw beneficiary details with health conditions"

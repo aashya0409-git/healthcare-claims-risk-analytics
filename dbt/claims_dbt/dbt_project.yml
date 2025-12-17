@@ -1,0 +1,21 @@
+name: 'claims_dbt'
+version: '1.0.0'
+config-version: 2
+
+packages:
+  - package: dbt-labs/dbt_utils
+    version: [">=0.8.0", "<1.0.0"]
+
+profile: 'claims_dbt'
+
+model-paths: ['models']
+seed-paths: ['seeds']
+analysis-paths: ['analyses']
+macro-paths: ['macros']
+snapshot-paths: ['snapshots']
+test-paths: ['tests']
+
+target-path: 'target'
+clean-targets:
+  - 'target'
+  - 'dbt_modules'

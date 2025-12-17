@@ -1,0 +1,32 @@
+# DBT build and logs
+dbt_packages/
+target/
+logs/
+manifest.json
+run_results.json
+
+# VSCode and other editor junk
+.vscode/
+.idea/
+*.code-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python virtual environments
+venv/
+.env/
+*.pyc
+__pycache__/
+
+# Credentials (ensure secrets are NOT tracked)
+profiles.yml
+.env
+
+# Power BI Autosaves (optional)
+*.pbip
+*.pbit
+
+# Excel backup junk (if any)
+~$*.xlsx

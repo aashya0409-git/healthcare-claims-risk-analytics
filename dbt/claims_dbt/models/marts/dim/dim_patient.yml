@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_patient
+    description: "Dimension table containing patient demographic and chronic condition flags"
+    columns:
+    - name: patient_id
+      tests:
+        - not_null
+        - unique
+
+    - name: gender
+      tests:
+        - accepted_values:
+            values: ['Male', 'Female', 'Unknown']
+
+    - name: race
+      tests:
+        - accepted_values:
+            values: ['White', 'Black', 'Asian/Pacific Islander', 'Hispanic', 'American Indian/Alaska Native', 'Other', 'Unknown']
+
+    - name: state
+      tests:
+        - accepted_values:
+            values: ['Alabama', 'Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana',
+                      'Maine','Maryland','Massachusetts',Michigan ,'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey',
+                      'New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina',
+                      'South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','west Virginia','Wisconsin','Wyoming','American Samoa','Guam',
+                      'Northern Mariana Islands','Puerto Rico','United States Minor Outlying Islands','Virgin Islands, U.S','Unknown']  # list all states used + 'Unknown'

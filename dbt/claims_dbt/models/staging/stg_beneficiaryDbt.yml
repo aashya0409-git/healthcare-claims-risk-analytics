@@ -1,0 +1,29 @@
+
+version: 2
+
+models:
+  - name: stg_beneficiaryDbt
+    description: "Staging model for cleaned beneficiary data with enriched lookup fields"
+    columns:
+      - name: patient_id
+        description: "Patient ID from raw beneficiary data"
+        tests:
+          - not_null
+          - unique
+
+      - name: gender_code
+        description: "Gender code (1 = Male, 2 = Female)"
+        tests:
+          - accepted_values:
+                 values: ['1', '2']
+
+      - name: race_code
+        description: "Race code (1-6 values mapped to race categories)"
+        tests:
+          - accepted_values:
+                values: ['1', '2', '3', '4', '5', '6']
+
+      - name: state_code
+        description: "Code representing the patient’s state of residence"
+        tests:
+          - not_null

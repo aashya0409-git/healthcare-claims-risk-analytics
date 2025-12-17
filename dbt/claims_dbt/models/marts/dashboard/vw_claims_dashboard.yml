@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: vw_claims_dashboard
+    description: >
+      This view powers the Power BI dashboard. It combines claim facts with patient demographics and chronic conditions to support cost, risk, and utilization analysis.
+    columns:
+      - name: claim_id
+        description: Unique identifier for each claim.
+      - name: patient_id
+        description: Patient associated with the claim.
+      - name: gender
+        description: Gender of the patient.
+      - name: race
+        description: Race of the patient.
+      - name: state
+        description: State where the patient resides.
+      - name: county_code
+        description: County code of the patient.
+      - name: claim_start_date
+        description: Start date of the hospitalization claim.
+      - name: claim_end_date
+        description: End date of the hospitalization claim.
+      - name: length_of_stay
+        description: Days between claim start and end.
+      - name: utilization_days_clean
+        description: Cleaned value representing hospital bed usage.
+      - name: claim_payment_amount
+        description: Total claim payment amount.
+      - name: primary_payer_paid
+        description: Amount paid by the primary payer.
+      - name: drg_code
+        description: Diagnosis-Related Group code.
+      - name: has_alzheimers
+        description: Flag for Alzheimer's diagnosis.
+      - name: has_chf
+        description: Flag for Congestive Heart Failure.
+      - name: has_chronic_kidney
+        description: Flag for Chronic Kidney Disease.
+      - name: has_cancer
+        description: Flag for cancer diagnosis.
+      - name: has_copd
+        description: Flag for Chronic Obstructive Pulmonary Disease.
+      - name: has_depression
+        description: Flag for depression.
+      - name: has_diabetes
+        description: Flag for diabetes.
+      - name: has_ischemic_heart
+        description: Flag for ischemic heart disease.
+      - name: has_osteoporosis
+        description: Flag for osteoporosis.
+      - name: has_arthritis
+        description: Flag for arthritis.
+      - name: has_stroke
+        description: Flag for stroke.
+      - name: total_months_enrolled
+        description: Total months the patient was enrolled in Medicare.
+      - name: is_high_cost_claim
+        description: Yes if claim cost > $100,000, else No.
