@@ -92,13 +92,9 @@ Implemented extensive dbt tests:
 
 ## Key Challenges Faced & How They Were Resolved
 
-### 1. Duplicate Business Keys
-**Issue:**  
-`claim_id` was not unique in raw data.
-
-**Fix:**  
-Replaced strict uniqueness with:
-
+ 1. Duplicate Business Keys
+Issue: `claim_id` was not unique in raw data.
+Fix:  Replaced strict uniqueness with:
 dbt_utils.unique_combination_of_columns:
   combination_of_columns:
     - claim_id
