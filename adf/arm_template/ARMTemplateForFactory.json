@@ -68,6 +68,209 @@
             "dependsOn": []
         },
         {
+            "name": "[concat(parameters('factoryName'), '/DS_SQL_Staging_Beneficiary')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "LS_AzureSQLDB",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [
+                    {
+                        "name": "DESYNPUF_ID",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "BENE_SEX_IDENT_CD",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "BENE_RACE_CD",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_STATE_CODE",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "BENE_COUNTY_CD",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_ALZHDMTA",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_CHF",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_CHRNKIDN",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_CNCR",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_COPD",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_DEPRESSN",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_DIABETES",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_ISCHMCHT",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_OSTEOPRS",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_RA_OA",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "SP_STRKETIA",
+                        "type": "bigint",
+                        "precision": 19
+                    },
+                    {
+                        "name": "Total_mons",
+                        "type": "bigint",
+                        "precision": 19
+                    }
+                ],
+                "typeProperties": {
+                    "schema": "dbo",
+                    "table": "Beneficiary"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/LS_AzureSQLDB')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/DS_Raw_Beneficiary')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "LS_Blob_RawData",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": "bene_file.csv",
+                        "container": "raw-data"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": [
+                    {
+                        "name": "DESYNPUF_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "BENE_SEX_IDENT_CD",
+                        "type": "String"
+                    },
+                    {
+                        "name": "BENE_RACE_CD",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_STATE_CODE",
+                        "type": "String"
+                    },
+                    {
+                        "name": "BENE_COUNTY_CD",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_ALZHDMTA",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_CHF",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_CHRNKIDN",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_CNCR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_COPD",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_DEPRESSN",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_DIABETES",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_ISCHMCHT",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_OSTEOPRS",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_RA_OA",
+                        "type": "String"
+                    },
+                    {
+                        "name": "SP_STRKETIA",
+                        "type": "String"
+                    },
+                    {
+                        "name": "Total_mons",
+                        "type": "String"
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/LS_Blob_RawData')]"
+            ]
+        },
+        {
             "name": "[concat(parameters('factoryName'), '/DS_Raw_InpatientClaims')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2018-06-01",
@@ -421,103 +624,6 @@
             ]
         },
         {
-            "name": "[concat(parameters('factoryName'), '/DS_Raw_Beneficiary')]",
-            "type": "Microsoft.DataFactory/factories/datasets",
-            "apiVersion": "2018-06-01",
-            "properties": {
-                "linkedServiceName": {
-                    "referenceName": "LS_Blob_RawData",
-                    "type": "LinkedServiceReference"
-                },
-                "annotations": [],
-                "type": "DelimitedText",
-                "typeProperties": {
-                    "location": {
-                        "type": "AzureBlobStorageLocation",
-                        "fileName": "bene_file.csv",
-                        "container": "raw-data"
-                    },
-                    "columnDelimiter": ",",
-                    "escapeChar": "\\",
-                    "firstRowAsHeader": true,
-                    "quoteChar": "\""
-                },
-                "schema": [
-                    {
-                        "name": "DESYNPUF_ID",
-                        "type": "String"
-                    },
-                    {
-                        "name": "BENE_SEX_IDENT_CD",
-                        "type": "String"
-                    },
-                    {
-                        "name": "BENE_RACE_CD",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_STATE_CODE",
-                        "type": "String"
-                    },
-                    {
-                        "name": "BENE_COUNTY_CD",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_ALZHDMTA",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_CHF",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_CHRNKIDN",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_CNCR",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_COPD",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_DEPRESSN",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_DIABETES",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_ISCHMCHT",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_OSTEOPRS",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_RA_OA",
-                        "type": "String"
-                    },
-                    {
-                        "name": "SP_STRKETIA",
-                        "type": "String"
-                    },
-                    {
-                        "name": "Total_mons",
-                        "type": "String"
-                    }
-                ]
-            },
-            "dependsOn": [
-                "[concat(variables('factoryId'), '/linkedServices/LS_Blob_RawData')]"
-            ]
-        },
-        {
             "name": "[concat(parameters('factoryName'), '/DS_SQL_Staging_InpatientClaims')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2018-06-01",
@@ -545,13 +651,11 @@
                     },
                     {
                         "name": "CLM_FROM_DT",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "CLM_THRU_DT",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "PRVDR_NUM",
@@ -569,8 +673,8 @@
                     },
                     {
                         "name": "AT_PHYSN_NPI",
-                        "type": "int",
-                        "precision": 10
+                        "type": "float",
+                        "precision": 15
                     },
                     {
                         "name": "OP_PHYSN_NPI",
@@ -584,13 +688,11 @@
                     },
                     {
                         "name": "CLM_ADMSN_DT",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "ADMTNG_ICD9_DGNS_CD",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "CLM_PASS_THRU_PER_DIEM_AMT",
@@ -614,13 +716,12 @@
                     },
                     {
                         "name": "CLM_UTLZTN_DAY_CNT",
-                        "type": "int",
-                        "precision": 10
+                        "type": "float",
+                        "precision": 15
                     },
                     {
                         "name": "NCH_BENE_DSCHRG_DT",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "CLM_DRG_CD",
@@ -629,13 +730,11 @@
                     },
                     {
                         "name": "ICD9_DGNS_CD_1",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "ICD9_DGNS_CD_2",
-                        "type": "int",
-                        "precision": 10
+                        "type": "varchar"
                     },
                     {
                         "name": "ICD9_DGNS_CD_3",
@@ -651,8 +750,7 @@
                     },
                     {
                         "name": "ICD9_DGNS_CD_6",
-                        "type": "float",
-                        "precision": 15
+                        "type": "varchar"
                     },
                     {
                         "name": "ICD9_DGNS_CD_7",
@@ -660,8 +758,7 @@
                     },
                     {
                         "name": "ICD9_DGNS_CD_8",
-                        "type": "float",
-                        "precision": 15
+                        "type": "varchar"
                     },
                     {
                         "name": "ICD9_DGNS_CD_9",
@@ -687,8 +784,7 @@
                     },
                     {
                         "name": "ICD9_PRCDR_CD_4",
-                        "type": "float",
-                        "precision": 15
+                        "type": "varchar"
                     },
                     {
                         "name": "ICD9_PRCDR_CD_5",
@@ -928,113 +1024,7 @@
                 ],
                 "typeProperties": {
                     "schema": "dbo",
-                    "table": "Stg_InpatientClaims"
-                }
-            },
-            "dependsOn": [
-                "[concat(variables('factoryId'), '/linkedServices/LS_AzureSQLDB')]"
-            ]
-        },
-        {
-            "name": "[concat(parameters('factoryName'), '/DS_SQL_Staging_Beneficiary')]",
-            "type": "Microsoft.DataFactory/factories/datasets",
-            "apiVersion": "2018-06-01",
-            "properties": {
-                "linkedServiceName": {
-                    "referenceName": "LS_AzureSQLDB",
-                    "type": "LinkedServiceReference"
-                },
-                "annotations": [],
-                "type": "AzureSqlTable",
-                "schema": [
-                    {
-                        "name": "DESYNPUF_ID",
-                        "type": "varchar"
-                    },
-                    {
-                        "name": "BENE_SEX_IDENT_CD",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "BENE_RACE_CD",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_STATE_CODE",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "BENE_COUNTY_CD",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_ALZHDMTA",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_CHF",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_CHRNKIDN",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_CNCR",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_COPD",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_DEPRESSN",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_DIABETES",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_ISCHMCHT",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_OSTEOPRS",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_RA_OA",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "SP_STRKETIA",
-                        "type": "int",
-                        "precision": 10
-                    },
-                    {
-                        "name": "Total_mons",
-                        "type": "int",
-                        "precision": 10
-                    }
-                ],
-                "typeProperties": {
-                    "schema": "dbo",
-                    "table": "Stg_Beneficiary"
+                    "table": "InpatientClaims"
                 }
             },
             "dependsOn": [
@@ -1064,7 +1054,7 @@
                                 "type": "DelimitedTextSource",
                                 "storeSettings": {
                                     "type": "AzureBlobStorageReadSettings",
-                                    "recursive": true,
+                                    "recursive": false,
                                     "enablePartitionDiscovery": false
                                 },
                                 "formatSettings": {
@@ -1074,7 +1064,9 @@
                             "sink": {
                                 "type": "AzureSqlSink",
                                 "writeBehavior": "insert",
-                                "sqlWriterUseTableLock": false
+                                "sqlWriterUseTableLock": true,
+                                "tableOption": "autoCreate",
+                                "disableMetricsCollection": false
                             },
                             "enableStaging": false,
                             "translator": {
@@ -2019,7 +2011,8 @@
                 "policy": {
                     "elapsedTimeMetric": {}
                 },
-                "annotations": []
+                "annotations": [],
+                "lastPublishTime": "2025-11-26T21:31:05Z"
             },
             "dependsOn": [
                 "[concat(variables('factoryId'), '/datasets/DS_Raw_InpatientClaims')]",
@@ -2296,7 +2289,8 @@
                 "policy": {
                     "elapsedTimeMetric": {}
                 },
-                "annotations": []
+                "annotations": [],
+                "lastPublishTime": "2025-11-26T21:31:06Z"
             },
             "dependsOn": [
                 "[concat(variables('factoryId'), '/datasets/DS_Raw_Beneficiary')]",
