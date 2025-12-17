@@ -66,6 +66,24 @@ Build an **end-to-end analytics pipeline** to:
 ├── architecture.md
 └── README.md
 
+
+## Power BI Dashboard: 
+
+![Patient Risk& Cost Summary](patientrisk.png)
+![chf example summary](chfexample.png)
+![patient demographics & risk analysis](patientdemographics.png)
+![black race example](blackexample.png)
+![patient details](patientdetails.png)
+
+> 🔗 [Click here to view the published Power BI dashboard](https://app.powerbi.com/view?r=eyJrIjoiMTM0MDc3NDQtY2Q3Yi00M2E2LTkxMDAtYTkxMGYzMGZlZjBjIiwidCI6IjkxMzhiMzE3LTk0MjktNDE4Mi05YmRjLTc1M2ZlYmJiMjJiNiJ9)
+
+The final Power BI dashboard includes:
+High-cost claim indicators
+Utilization trends by demographic
+Chronic condition risk profiling
+Drill-through from summary → patient detail
+Executive KPIs with clean semantic modeling
+
 ## Data Modeling Approach
 
 - **Staging models** (`stg_*`):  
@@ -116,15 +134,6 @@ Issue: Incorrect YAML syntax and deprecated test definitions.
 Fix: Corrected test indentation
 Migrated to arguments: syntax
 Installed and locked dbt_utils via packages.yml
-
-Power BI Dashboard
-
-The final Power BI dashboard includes:
-High-cost claim indicators
-Utilization trends by demographic
-Chronic condition risk profiling
-Drill-through from summary → patient detail
-Executive KPIs with clean semantic modeling
 
 Current Status: 
 
